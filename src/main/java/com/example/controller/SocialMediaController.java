@@ -37,7 +37,7 @@ public class SocialMediaController {
         try{
             Account res = accountService.createAccount(newAccount);
             return ResponseEntity.accepted()
-                   .body(newAccount);
+                   .body(res);
         } catch (AccountAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                    .body(e.getMessage());
