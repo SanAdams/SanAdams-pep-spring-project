@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.azul.crs.client.Response;
 import com.example.entity.Account;
 import com.example.entity.Message;
 import com.example.service.AccountService;
@@ -38,7 +37,7 @@ public class SocialMediaController {
 
         try{
             Account res = accountService.createAccount(newAccount);
-            return ResponseEntity.accepted()
+            return ResponseEntity.ok()
                    .body(res);
         } catch (AccountAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
