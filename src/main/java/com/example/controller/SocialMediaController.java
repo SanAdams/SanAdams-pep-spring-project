@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+import com.azul.crs.client.Response;
 import com.example.entity.Account;
 import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 import com.example.exception.AccountAlreadyExistsException;
+import com.example.exception.BlankUsernameException;
+import com.example.exception.PasswordLengthException;
 
 
 /**
@@ -41,7 +43,10 @@ public class SocialMediaController {
         } catch (AccountAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                    .body(e.getMessage());
-        } catch (Exception e) {
+        } catch (BlankUsernameException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                   .body(e.getMessage());
+        } catch (PasswordLengthException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                    .body(e.getMessage());
         }
