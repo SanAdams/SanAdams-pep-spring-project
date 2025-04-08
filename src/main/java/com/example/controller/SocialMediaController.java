@@ -57,14 +57,17 @@ public class SocialMediaController {
     public ResponseEntity<?> loginHandler(@RequestBody Account loginAccount){
         try {
             Account res = accountService.login(loginAccount);
-            return ResponseEntity.ok()
+            return ResponseEntity
+                   .ok()
                    .body(res);
         } catch (AccountDoesNotExistException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            return ResponseEntity
+                   .status(HttpStatus.UNAUTHORIZED)
                    .body(e.getMessage());
         } catch (PasswordDoesNotMatchException e) {
-            return ResponseEntity.badRequest()
-                    .body(e.getMessage());
+            return ResponseEntity
+                   .status(HttpStatus.UNAUTHORIZED)
+                   .body(e.getMessage());
         }
     }
 
