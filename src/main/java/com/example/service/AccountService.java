@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.entity.Account;
 import com.example.exception.AccountAlreadyExistsException;
+import com.example.exception.AccountDoesNotExistException;
 import com.example.exception.BlankUsernameException;
+import com.example.exception.PasswordDoesNotMatchException;
 import com.example.exception.PasswordLengthException;
 import com.example.repository.AccountRepository;
 
@@ -34,6 +36,16 @@ public class AccountService {
         }
     }
 
-    
+    public Account login (Account loginAccount){
+        if (!accountRepository.existsByUsername(loginAccount.getUsername()))
+            throw new AccountDoesNotExistException("An account with that username does not exist");
+        
+        Account res = accountRepository.findByUsername(loginAccount.getUsername());
+
+        if (!res.getPassword().equals(loginAccount.getPassword()))
+            throw new PasswordDoesNotMatchException("Password is incorrect, try again.");
+
+        return res;
+    }
 
 }
