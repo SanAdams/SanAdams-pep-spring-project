@@ -12,6 +12,7 @@ import com.example.exception.login.PasswordDoesNotMatchException;
 import com.example.exception.login.PasswordLengthException;
 import com.example.exception.message.MessageBlankException;
 import com.example.exception.message.MessageLengthException;
+import com.example.exception.message.MessageNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -47,5 +48,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MessageBlankException.class, MessageLengthException.class})
     public ResponseEntity<String> handleMessageValidation(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Message: " + e.getMessage());
+    }
+
+    @ExceptionHandler(MessageNotFoundException.class)
+    public ResponseEntity<String> handleMessageNotFound(MessageNotFoundException e) {
+        return ResponseEntity.ok().body(e.getMessage());
     }
 }
