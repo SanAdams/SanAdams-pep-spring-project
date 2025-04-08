@@ -11,7 +11,9 @@ import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 import com.example.exception.AccountAlreadyExistsException;
+import com.example.exception.AccountDoesNotExistException;
 import com.example.exception.BlankUsernameException;
+import com.example.exception.PasswordDoesNotMatchException;
 import com.example.exception.PasswordLengthException;
 
 
@@ -52,8 +54,18 @@ public class SocialMediaController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Account> login(){
-        return null;
+    public ResponseEntity<?> loginHandler(@RequestBody Account loginAccount){
+        try {
+            Account res = accountService.login(loginAccount);
+            return ResponseEntity.ok()
+                   .body(res);
+        } catch (AccountDoesNotExistException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                   .body(e.getMessage());
+        } catch (PasswordDoesNotMatchException e) {
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
+        }
     }
 
     @PostMapping("/messages")
