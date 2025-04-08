@@ -1,8 +1,6 @@
 package com.example.exception.login;
 
-import com.example.exception.account.AccountCreationException;
-
-public class PasswordLengthException extends AccountCreationException{
+public class PasswordLengthException extends LoginException{
     public PasswordLengthException(String message){
         super(message);
     }
