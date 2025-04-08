@@ -10,11 +10,11 @@ import com.example.entity.Account;
 import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
-import com.example.exception.AccountAlreadyExistsException;
-import com.example.exception.AccountDoesNotExistException;
-import com.example.exception.BlankUsernameException;
-import com.example.exception.PasswordDoesNotMatchException;
-import com.example.exception.PasswordLengthException;
+import com.example.exception.account.AccountAlreadyExistsException;
+import com.example.exception.account.AccountDoesNotExistException;
+import com.example.exception.login.BlankUsernameException;
+import com.example.exception.login.PasswordDoesNotMatchException;
+import com.example.exception.login.PasswordLengthException;
 
 
 /**
