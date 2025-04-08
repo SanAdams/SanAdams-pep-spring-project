@@ -4,9 +4,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.entity.Message;
 import com.example.exception.account.AccountDoesNotExistException;
-import com.example.exception.message.MessageBlankException;
-import com.example.exception.message.MessageLengthException;
+import com.example.exception.message.*;
 import com.example.repository.MessageRepository;
+
+import java.util.List;
 
 @Service
 public class MessageService {
@@ -33,4 +34,16 @@ public class MessageService {
         }        
         return true;
     }
+
+    public List<Message> getAllMessages(){
+        List<Message> messages = messageRepository.findAll();
+        return messages;
+    }
+
+    public Message getMessageById(Integer messageId){
+        return messageRepository.findById(messageId)
+               .orElseThrow(() -> new MessageNotFoundException("No message found with id: " + messageId));
+    }
+
+
 }
