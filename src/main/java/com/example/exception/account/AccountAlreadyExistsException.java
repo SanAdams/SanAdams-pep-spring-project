@@ -1,4 +1,4 @@
-package com.example.exception;
+package com.example.exception.account;
 
 public class AccountAlreadyExistsException extends AccountCreationException {
     public AccountAlreadyExistsException(String message){
