@@ -18,11 +18,11 @@ public class MessageService {
     }
 
     public Message createMessage(Message newMessage){
-        meetsConstraints(newMessage);
+        meetsPostConstraints(newMessage);
         return messageRepository.save(newMessage);
     }
 
-    public boolean meetsConstraints(Message message){
+    public boolean meetsPostConstraints(Message message){
         if(message.getMessageText().isBlank()){
             throw new MessageBlankException("Message cannot be blank");    
         }
@@ -47,5 +47,27 @@ public class MessageService {
 
     public int deleteMessageById(Integer messageId){
         return messageRepository.deleteMessageById(messageId);
+    }
+
+    public int updateMessage(String newMessageText, int messageId){
+        meetsUpdateConstraints(newMessageText, messageId);
+        return messageRepository.updateMessage(newMessageText, messageId);
+    }
+
+    public boolean meetsUpdateConstraints(String messageText, int messageId){
+        if (messageText.isBlank()){
+            throw new MessageBlankException("Message cannot be blank");    
+        }
+        else if (messageText.length() > 255){
+            throw new MessageLengthException("Message cannot be over 255 characters");
+        } 
+        else if (!messageRepository.existsById(messageId)){
+            throw new MessageNotFoundException("Message with given ID not found");
+        }
+        return true;
+    }
+
+    public List<Message> getAllMessagesByUser(Integer accountId){
+        return messageRepository.findByPostedBy(accountId);
     }
 }
