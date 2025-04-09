@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class MessageService {
-    private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
 
     public MessageService(MessageRepository messageRepository){
         this.messageRepository = messageRepository;
@@ -45,5 +45,7 @@ public class MessageService {
                .orElseThrow(() -> new MessageNotFoundException("No message found with id: " + messageId));
     }
 
-
+    public int deleteMessageById(Integer messageId){
+        return messageRepository.deleteMessageById(messageId);
+    }
 }
