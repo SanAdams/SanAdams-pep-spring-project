@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccountDoesNotExistException.class)
     public ResponseEntity<String> handleAccountDoesNotExist(AccountDoesNotExistException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Input: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Input: " + e.getMessage());
     }
 
     /* LOGIN EXCEPTIONS */
