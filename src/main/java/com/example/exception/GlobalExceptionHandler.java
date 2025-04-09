@@ -52,6 +52,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MessageNotFoundException.class)
     public ResponseEntity<String> handleMessageNotFound(MessageNotFoundException e) {
-        return ResponseEntity.ok().body(e.getMessage());
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
